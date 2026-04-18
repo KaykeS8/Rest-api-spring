@@ -3,7 +3,7 @@ package simao.com.startup.controllers;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import simao.com.startup.model.Person;
-import simao.com.startup.service.PersonService;
+import simao.com.startup.services.PersonService;
 
 import java.util.List;
 
@@ -18,20 +18,20 @@ public class PersonController {
     }
 
     @RequestMapping(
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public List<Person> findAll() {
+        return personService.findAll();
+    }
+
+    @RequestMapping(
             value = "/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Person findById(@PathVariable Long id) {
         return personService.findById(id);
-    }
-
-    @RequestMapping(
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public List<Person> findAll() {
-        return personService.findAll();
     }
 
     @RequestMapping(
