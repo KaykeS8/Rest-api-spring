@@ -1,26 +1,27 @@
 package simao.com.startup.services;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import simao.com.startup.exception.ResourceNotFoundException;
 import simao.com.startup.model.Person;
 import simao.com.startup.repository.PersonRepository;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 @Service
 public class PersonService {
 
+    private static final Logger logger = LoggerFactory.getLogger(PersonService.class);
     private final PersonRepository personRepository;
 
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
-    private final Logger logger = Logger.getLogger(PersonService.class.getName());
-
     public List<Person> findAll() {
-       return personRepository.findAll();
+        logger.debug("DEBUG");
+        return personRepository.findAll();
     }
 
     public Person findById(Long id) {
