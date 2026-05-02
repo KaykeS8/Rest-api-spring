@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/person")
 public class PersonController {
 
-    private PersonService personService;
+    private final PersonService personService;
 
     public PersonController(PersonService personService) {
         this.personService = personService;
@@ -32,7 +32,6 @@ public class PersonController {
     public Person create(@RequestBody Person person) {
         return personService.create(person);
     }
-
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Person update(@RequestBody Person person) {
