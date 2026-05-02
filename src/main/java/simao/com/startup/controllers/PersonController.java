@@ -3,6 +3,7 @@ package simao.com.startup.controllers;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import simao.com.startup.dto.PersonDto;
 import simao.com.startup.model.Person;
 import simao.com.startup.services.PersonService;
 
