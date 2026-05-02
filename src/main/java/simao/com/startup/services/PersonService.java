@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import simao.com.startup.dto.PersonDto;
 import simao.com.startup.exception.ResourceNotFoundException;
-import simao.com.startup.mapper.ObjectMapper;
+import static simao.com.startup.mapper.ObjectMapper.*;
 import simao.com.startup.model.Person;
 import simao.com.startup.repository.PersonRepository;
 
@@ -21,31 +21,33 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public List<Person> findAll() {
+    public List<PersonDto> findAll() {
         logger.debug("DEBUG");
-        return personRepository.findAll();
+        return parseListObject(personRepository.findAll(), PersonDto.class);
     }
 
-    public Person findById(Long id) {
+    public PersonDto findById(Long id) {
         logger.info("Finding one person");
         return personRepository.findById(id)
+                .map(person -> parseObject(person, PersonDto.class))
                 .orElseThrow(() -> new ResourceNotFoundException("Person not found"));
     }
 
-    public Person create(Person person) {
+    public PersonDto create(PersonDto personDto) {
         logger.info("Creating person");
-        return personRepository.save(person);
+        Person person = parseObject(personDto, Person.class);
+        return parseObject(personRepository.save(person), PersonDto.class);
     }
 
-    public Person update(Person person) {
+    public PersonDto update(PersonDto personDto) {
         logger.info("Update person");
-        return personRepository.findById(person.getId())
+        return personRepository.findById(personDto.getId())
                 .map((person1) -> {
-                    person1.setFirstName(person.getFirstName());
-                    person1.setLastName(person.getLastName());
-                    person1.setGender(person.getGender());
-                    person1.setAddress(person.getAddress());
-                    return personRepository.save(person1);
+                    person1.setFirstName(personDto.getFirstName());
+                    person1.setLastName(personDto.getLastName());
+                    person1.setGender(personDto.getGender());
+                    person1.setAddress(personDto.getAddress());
+                    return parseObject(personRepository.save(person1), PersonDto.class);
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("Person not found"));
     }

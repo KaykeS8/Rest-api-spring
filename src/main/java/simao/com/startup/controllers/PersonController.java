@@ -4,7 +4,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import simao.com.startup.dto.PersonDto;
-import simao.com.startup.model.Person;
 import simao.com.startup.services.PersonService;
 
 import java.util.List;
@@ -20,23 +19,23 @@ public class PersonController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll() {
+    public List<PersonDto> findAll() {
         return personService.findAll();
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable Long id) {
+    public PersonDto findById(@PathVariable Long id) {
         return personService.findById(id);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person create(@RequestBody Person person) {
-        return personService.create(person);
+    public PersonDto create(@RequestBody PersonDto personDto) {
+        return personService.create(personDto);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person) {
-        return personService.update(person);
+    public PersonDto update(@RequestBody PersonDto personDto) {
+        return personService.update(personDto);
     }
 
     @DeleteMapping(value = "/{id}")
