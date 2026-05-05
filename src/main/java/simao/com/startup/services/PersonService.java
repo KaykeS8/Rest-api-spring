@@ -2,9 +2,12 @@ package simao.com.startup.services;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import simao.com.startup.dto.PersonDto;
+import simao.com.startup.dto.v1.PersonDto;
+import simao.com.startup.dto.v2.PersonDtoV2;
 import simao.com.startup.exception.ResourceNotFoundException;
 import static simao.com.startup.mapper.ObjectMapper.*;
+
+import simao.com.startup.mapper.custom.PersonMapper;
 import simao.com.startup.model.Person;
 import simao.com.startup.repository.PersonRepository;
 
@@ -37,6 +40,12 @@ public class PersonService {
         logger.info("Creating person");
         Person person = parseObject(personDto, Person.class);
         return parseObject(personRepository.save(person), PersonDto.class);
+    }
+
+    public PersonDtoV2 createV2(PersonDtoV2 personDtoV2) {
+        logger.info("Creating person (V2)");
+        Person person = PersonMapper.convertDtoToEntity(personDtoV2);
+        return PersonMapper.convertEntityToDto(personRepository.save(person));
     }
 
     public PersonDto update(PersonDto personDto) {

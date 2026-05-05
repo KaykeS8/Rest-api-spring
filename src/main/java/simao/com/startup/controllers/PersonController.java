@@ -3,7 +3,8 @@ package simao.com.startup.controllers;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import simao.com.startup.dto.PersonDto;
+import simao.com.startup.dto.v1.PersonDto;
+import simao.com.startup.dto.v2.PersonDtoV2;
 import simao.com.startup.services.PersonService;
 
 import java.util.List;
@@ -31,6 +32,11 @@ public class PersonController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public PersonDto create(@RequestBody PersonDto personDto) {
         return personService.create(personDto);
+    }
+
+    @PostMapping(value = "/v2", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public PersonDtoV2 create(@RequestBody PersonDtoV2 personDtoV2) {
+        return personService.createV2(personDtoV2);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
