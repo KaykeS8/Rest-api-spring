@@ -1,17 +1,35 @@
 package simao.com.startup.dto.v1;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import simao.com.startup.serializer.GenderSerializer;
+
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
+@JsonPropertyOrder({"id", "firstName", "lastName", "gender", "address"})
 public class PersonDto implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @JsonProperty("first_name")
     private String firstName;
+
+    @JsonProperty("last_name")
     private String lastName;
+
+    @JsonFormat(pattern = "dd/MM/YYYY")
+    private final LocalDateTime date = LocalDateTime.now();
+
     private String address;
+
+    @JsonSerialize(using = GenderSerializer.class)
     private String gender;
 
     public PersonDto() {}
