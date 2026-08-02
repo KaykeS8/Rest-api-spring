@@ -1,6 +1,5 @@
 package simao.com.startup.controllers;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import simao.com.startup.dto.v1.PersonDto;
@@ -19,28 +18,28 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public List<PersonDto> findAll() {
         return personService.findAll();
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}")
     public PersonDto findById(@PathVariable Long id) {
         return personService.findById(id);
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public PersonDto create(@RequestBody PersonDto personDto) {
         return personService.create(personDto);
     }
 
-    @PostMapping(value = "/v2", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/v2")
     public PersonDtoV2 create(@RequestBody PersonDtoV2 personDtoV2) {
         return personService.createV2(personDtoV2);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDto update(@RequestBody PersonDto personDto) {
+    @PutMapping
+        public PersonDto update(@RequestBody PersonDto personDto) {
         return personService.update(personDto);
     }
 

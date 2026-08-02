@@ -3,8 +3,6 @@ package simao.com.startup.dto.v1;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import simao.com.startup.serializer.GenderSerializer;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -21,7 +19,7 @@ public class PersonDto implements Serializable {
     @JsonProperty("first_name")
     private String firstName;
 
-    @JsonProperty("last_name")
+        @JsonProperty("last_name")
     private String lastName;
 
     @JsonFormat(pattern = "dd/MM/YYYY")
@@ -29,7 +27,6 @@ public class PersonDto implements Serializable {
 
     private String address;
 
-    @JsonSerialize(using = GenderSerializer.class)
     private String gender;
 
     public PersonDto() {}
